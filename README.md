@@ -1,8 +1,5 @@
-# das
-
-Database access proxy service
-
-Deploy:
+# Database access proxy service
+## Deploy:
 1. mvn clean packag
 2. sudo cp target/dal-das-worker-1.0.0.tar.gz /opt/app
 3. cd /opt/app
