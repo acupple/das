@@ -8,15 +8,3 @@
 6. cd ./dasworker/bin
 7. sudo chmod +x worker wrapper-linux-x86-64
 8. sudo ./worker start 
-## Usage
-Connection connection = null;
-try{
-  connection = new Connection(HOST, PORT);
-  connection.connect();
-  DalClient client = new DalClient(connection, "db_name");
-  RecordMapper<TestBig> mapper = AutoRecordMapper.create(TestBig.class);
-  DalModels.DalHints hints = DalModels.DalHints.getDefaultInstance();
-  List<TestBig> persons = client.query("SELECT * FROM Table_name", mapper, hints);
-}cactch(Exception e){
-  e.printStackTrace();
-}
