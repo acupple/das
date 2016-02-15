@@ -8,3 +8,9 @@
 6. cd ./dasworker/bin
 7. sudo chmod +x worker wrapper-linux-x86-64
 8. sudo ./worker start 
+
+## TODO List
+1. worker service discovery
+2. load balance
+3. datasource manager for jdbc connection on worker
+4. security
