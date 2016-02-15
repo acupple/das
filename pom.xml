@@ -12,6 +12,8 @@
         <module>das-worker</module>
         <module>das-client</module>
         <module>das-worker-ctl</module>
+        <module>das-lpt</module>
+        <module>das-examples</module>
     </modules>
     <packaging>pom</packaging>
 
