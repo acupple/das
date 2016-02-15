@@ -1,0 +1,184 @@
+package org.mokey.stormv.das.models;
+option java_package = "org.mokey.stormv.das.models";
+
+enum DalHintEnum{
+	operation = 0;
+	shardValue = 1;
+	tableShardValue = 2;
+	shardColValues = 3;
+	fields = 4;
+	parameters = 5;
+	shard = 6;
+	tableShard = 7;
+	forceAutoCommit = 8;
+	timeout = 9;
+	resultSetType = 10;
+    resultSetConcurrency = 11;
+	fetchSize = 12;
+	skipResultsProcessing = 13;
+	maxRows = 14;
+	sensitive = 15;
+	masterOnly = 16; 
+	heighAvaliable = 17;
+	continueOnError = 18;
+	isolationLevel = 19;
+	updateNullField = 20;
+	detailResults = 21;
+	returnGeneratedKeys = 22;
+}
+
+enum CommandType{
+	QUERY = 0;
+	UPDATE = 1;
+	BATCHUPDATE = 2;
+	STOREPROCEDURE = 3;
+	BATCHSTOREPROCEDURE = 4;
+	STARTTRANSACTION = 5;
+	ENDTRANSACTION = 6;
+	ROLLBACKTRANSACTION = 7;
+	UPLOADCONFIG = 8;
+	SETTING=9;
+}
+
+enum Direction{
+	Input = 1;
+	Output = 2;
+	InputOutput = 3;
+	ReturnValue = 6;
+}
+
+enum DatabaseCategory{
+	MYSQL = 0;
+	SQLSERVER = 1;
+}
+
+message ColumnMata{
+    required string name = 1;
+    required int32 type = 2;
+}
+
+message AvailableType{
+	required bool isNull = 1;
+	optional bool bool_arg = 2;
+	optional int32 int32_arg = 3;
+	optional int64 int64_arg = 4;
+	optional double double_arg = 5;
+	optional string string_arg = 6;
+	optional bytes bytes_arg = 7;
+}
+
+message SqlParameter {
+	optional int32 dbType = 1;
+	optional Direction direction = 2;
+	optional bool isNull = 3;
+	optional string name = 4;
+	optional int32 index = 5;
+	optional bool sensitive = 6;
+	optional AvailableType value = 7;
+}
+
+message SqlParameters{
+	repeated SqlParameter parameters = 1;
+}
+
+message DalHint{
+	required DalHintEnum key = 1;
+	required string value = 2;
+}
+
+message DalHints{
+	repeated DalHint hints = 1;
+}
+
+message Version{
+	required string client = 1;
+	required string version = 2;
+}
+
+message Transaction{
+	required string transactionId = 1;
+	required int32 startLevel = 2;
+}
+
+message RequestMessage {
+    optional bool master = 1;
+	optional string sql = 2;
+	optional string callString = 3;
+    repeated string sqls = 4;
+	optional SqlParameters parameters = 5;
+    repeated SqlParameters parametersList = 6;
+	optional int32 querySize = 7;
+	optional int32 fetchSize = 8;
+}
+
+message Record {
+	repeated AvailableType fields = 1;
+}
+
+message InnerResultSet{
+	required bool last = 1;
+	repeated Record records = 2;
+}
+
+message KeyValue{
+	 required string key = 1;
+	 required string value = 2;
+}
+
+message LogEntity{
+	required string title = 1;
+	required string logMessage = 2;
+	repeated KeyValue tags = 3;
+	optional string level = 4;
+}
+
+message DataBase{
+	required string name = 1;
+	required bool master = 2;
+	optional string sharding = 3;
+	required string connectionString = 4;
+}
+
+message DatabaseSet{
+	required string name = 1;
+	required string provider = 2;
+	required DatabaseCategory category = 3;
+	optional string shardingStrategy = 4;
+	repeated DataBase masters = 5;
+	repeated DataBase slaves = 6;
+}
+
+message DalConfigure{
+	required string name = 1;
+	repeated DatabaseSet databaseSets = 2;
+}
+
+message KeyHolder{
+	 repeated KeyValue holder = 1;
+}
+
+message Request {
+	required Version version = 1;
+	optional string logicDb = 2;
+	required CommandType commandType = 3;
+	optional bool master = 4;
+	optional string credential = 5;
+	optional DalHints hints = 6;
+	optional Transaction transaction = 7;
+	optional RequestMessage message = 8;
+	required int32 requestId = 9;
+	repeated ColumnMata queryHanders = 10;
+	optional bool compress = 11;
+}
+message Response{
+	optional LogEntity logEntity = 1;
+	repeated ColumnMata queryHanders = 2;
+	optional DalHints hints = 3;
+	optional int32 affectRows = 4;
+	repeated int32 affectRowsList = 5;
+	repeated KeyHolder keyHolders = 6;
+	optional Transaction transaction = 7;
+	optional InnerResultSet resultSet = 8;
+	required int32 requestId = 9;
+	optional string exception = 10;
+}

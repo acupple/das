@@ -1,0 +1,32 @@
+<assembly>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>target/jsw/worker/bin</directory>
+            <includes>
+                <include>*</include>
+            </includes>
+            <outputDirectory>bin</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/jsw/worker/conf</directory>
+            <includes>
+                <include>*</include>
+            </includes>
+            <outputDirectory>conf</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/jsw/worker/lib</directory>
+            <includes>
+                <include>*</include>
+            </includes>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/jsw/worker/logs</directory>
+            <outputDirectory>logs</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>
