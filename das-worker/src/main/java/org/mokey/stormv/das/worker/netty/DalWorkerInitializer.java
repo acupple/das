@@ -1,10 +1,7 @@
 package org.mokey.stormv.das.worker.netty;
 
+import io.netty.channel.*;
 import org.mokey.stormv.das.models.DalModels;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.compression.JdkZlibDecoder;
 import io.netty.handler.codec.compression.JdkZlibEncoder;
@@ -13,6 +10,8 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.util.AttributeKey;
+
+import java.net.SocketAddress;
 
 @ChannelHandler.Sharable
 public class DalWorkerInitializer extends ChannelInitializer<SocketChannel>{
@@ -35,6 +34,15 @@ public class DalWorkerInitializer extends ChannelInitializer<SocketChannel>{
 		p.addLast(ProtobufEncoder, new ProtobufEncoder());
 
 		p.addLast(new ServiceHandler());
+	}
+
+	@Override
+	public void connect(ChannelHandlerContext ctx, SocketAddress remoteAddress, SocketAddress localAddress, ChannelPromise promise) throws Exception {
+	}
+
+	@Override
+	public void disconnect(ChannelHandlerContext ctx, ChannelPromise promise) throws Exception {
+
 	}
 
 	public static void addCompressDecoderEncoder(ChannelFuture future){

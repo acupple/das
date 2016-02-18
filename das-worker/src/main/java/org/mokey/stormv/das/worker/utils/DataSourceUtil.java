@@ -2,6 +2,7 @@ package org.mokey.stormv.das.worker.utils;
 
 import javax.sql.DataSource;
 
+import org.mokey.stormv.das.worker.datasource.DataSourceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,7 @@ public class DataSourceUtil {
 		if(allInOneKeys != null){
 			for (int i = 0; i < allInOneKeys.length; i++) {
 				try{
-					//DataSourceLocator.newInstance().getDataSource(allInOneKeys[i]);
+					DataSourceLocator.getInstance().getDataSource(allInOneKeys[i]);
 					logger.info(String.format("The database %s has been warmed up", allInOneKeys[i]));
 				}catch(Exception e){
 					logger.error(String.format("Warm up database %s failed.", allInOneKeys[i]));
@@ -31,7 +32,6 @@ public class DataSourceUtil {
 	}
 	
 	public static DataSource getDataSource(String allInOneKey) throws Exception{
-		//return DataSourceLocator.newInstance().getDataSource(allInOneKey);
-		return null;
+		return DataSourceLocator.getInstance().getDataSource(allInOneKey);
 	}
 }

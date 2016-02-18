@@ -134,9 +134,10 @@ message LogEntity{
 
 message DataBase{
 	required string name = 1;
-	required bool master = 2;
-	optional string sharding = 3;
-	required string connectionString = 4;
+	required string region = 2;
+	required bool master = 3;
+	optional string sharding = 4;
+	required string connectionString = 5;
 }
 
 message DatabaseSet{
